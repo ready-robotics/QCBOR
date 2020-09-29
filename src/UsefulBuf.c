@@ -2,6 +2,8 @@
  Copyright (c) 2016-2018, The Linux Foundation.
  Copyright (c) 2018-2020, Laurence Lundblade.
 
+ All Modifications Copyright 2020, READY Robotics
+
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions are
 met:
@@ -41,6 +43,7 @@ IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
  when        who          what, where, why
  --------    ----         ---------------------------------------------------
+ 09/28/2020  pjkumlue     Declare for loop iterator variables outside for compatibility
  01/28/2020  llundblade   Refine integer signedness to quiet static analysis.
  01/08/2020  llundblade   Documentation corrections & improved code formatting.
  11/08/2019  llundblade   Re check pointer math and update comments
@@ -107,7 +110,8 @@ size_t UsefulBuf_IsValue(const UsefulBufC UB, uint8_t uValue)
    }
 
    const uint8_t * const pEnd = (uint8_t *)UB.ptr + UB.len;
-   for(const uint8_t *p = UB.ptr; p < pEnd; p++) {
+   const uint8_t *p;
+   for(p = UB.ptr; p < pEnd; p++) {
       if(*p != uValue) {
          /* Byte didn't match */
          /* Cast from signed  to unsigned . Safe because the loop increments.*/
@@ -128,8 +132,8 @@ size_t UsefulBuf_FindBytes(UsefulBufC BytesToSearch, UsefulBufC BytesToFind)
    if(BytesToSearch.len < BytesToFind.len) {
       return SIZE_MAX;
    }
-
-   for(size_t uPos = 0; uPos <= BytesToSearch.len - BytesToFind.len; uPos++) {
+   size_t uPos;
+   for(uPos = 0; uPos <= BytesToSearch.len - BytesToFind.len; uPos++) {
       if(!UsefulBuf_Compare((UsefulBufC){((uint8_t *)BytesToSearch.ptr) + uPos, BytesToFind.len}, BytesToFind)) {
          return uPos;
       }

@@ -3,6 +3,8 @@
  Copyright (c) 2018-2020, Laurence Lundblade.
  All rights reserved.
 
+ All Modifications Copyright 2020, READY Robotics
+
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions are
 met:
@@ -30,8 +32,18 @@ OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN
 IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  =============================================================================*/
 
+ /*============================================================================
+  FILE:  qcbor_decode.c
 
-#include "qcbor/qcbor_decode.h"
+  EDIT HISTORY FOR FILE:
+
+  when         who             what, where, why
+  --------     ----            --------------------------------------------------
+  9/28/2020    pjkumlue        Declare iterator variable outside of for loop for compatibility
+
+  =============================================================================*/
+
+#include "qcbor_decode.h"
 #include "ieee754.h"
 
 
@@ -253,7 +265,8 @@ static inline int TagMapper_LookupBuiltIn(uint64_t uTag)
       return -1;
    }
 
-   for(int nTagBitIndex = 0; nTagBitIndex < (int)(sizeof(spBuiltInTagMap)/sizeof(uint16_t)); nTagBitIndex++) {
+   int nTagBitIndex;
+   for(nTagBitIndex = 0; nTagBitIndex < (int)(sizeof(spBuiltInTagMap)/sizeof(uint16_t)); nTagBitIndex++) {
       if(spBuiltInTagMap[nTagBitIndex] == uTag) {
          return nTagBitIndex;
       }
@@ -263,7 +276,8 @@ static inline int TagMapper_LookupBuiltIn(uint64_t uTag)
 
 static inline int TagMapper_LookupCallerConfigured(const QCBORTagListIn *pCallerConfiguredTagMap, uint64_t uTag)
 {
-   for(int nTagBitIndex = 0; nTagBitIndex < pCallerConfiguredTagMap->uNumTags; nTagBitIndex++) {
+	int nTagBitIndex;
+   for(nTagBitIndex = 0; nTagBitIndex < pCallerConfiguredTagMap->uNumTags; nTagBitIndex++) {
       if(pCallerConfiguredTagMap->puTags[nTagBitIndex] == uTag) {
          return nTagBitIndex + TAG_MAPPER_CUSTOM_TAGS_BASE_INDEX;
       }
@@ -441,7 +455,8 @@ inline static QCBORError DecodeTypeAndNumber(UsefulInputBuf *pUInBuf,
 
       // Loop getting all the bytes in the argument
       uArgument = 0;
-      for(int i = aIterate[nAdditionalInfo - LEN_IS_ONE_BYTE]; i; i--) {
+	  int i;
+      for(i = aIterate[nAdditionalInfo - LEN_IS_ONE_BYTE]; i; i--) {
          // This shift and add gives the endian conversion
          uArgument = (uArgument << 8) + UsefulInputBuf_GetByte(pUInBuf);
       }

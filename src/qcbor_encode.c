@@ -3,6 +3,8 @@
  Copyright (c) 2018-2020, Laurence Lundblade.
  All rights reserved.
 
+ All Modifications Copyright 2020, READY Robotics
+
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions are
 met:
@@ -30,8 +32,19 @@ OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN
 IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  =============================================================================*/
 
+ /*============================================================================
+  FILE:  qcbor_encode.c
 
-#include "qcbor/qcbor_encode.h"
+  EDIT HISTORY FOR FILE:
+
+  when         who             what, where, why
+  --------     ----            --------------------------------------------------
+  9/28/2020    pjkumlue        Declare iterator variable outside of for loop for compatibility
+
+  =============================================================================*/
+
+
+#include "qcbor_encode.h"
 #include "ieee754.h"
 
 
@@ -357,7 +370,8 @@ UsefulBufC QCBOREncode_EncodeHead(UsefulBuf buffer,
       int i;
       for(i = 0; uArgument || nMinLen > 0; i++) {
          const int nIterations = (int)aIterate[i];
-         for(int j = 0; j < nIterations; j++) {
+		 int j;
+         for(j = 0; j < nIterations; j++) {
             *--pByte = (uint8_t)(uArgument & 0xff);
             uArgument = uArgument >> 8;
          }
