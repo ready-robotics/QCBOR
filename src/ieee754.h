@@ -3,6 +3,8 @@
 
  Copyright (c) 2018-2020, Laurence Lundblade. All rights reserved.
 
+ All Modifications Copyright 2020, READY Robotics
+
  SPDX-License-Identifier: BSD-3-Clause
 
  See BSD-3-Clause license in README.md
@@ -15,7 +17,7 @@
 #ifndef ieee754_h
 #define ieee754_h
 
-#include <stdint.h>
+#include "pstdint.h"
 
 
 

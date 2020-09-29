@@ -2,6 +2,8 @@
  Copyright (c) 2016-2018, The Linux Foundation.
  Copyright (c) 2018-2020, Laurence Lundblade.
 
+ All Modifications Copyright 2020, READY Robotics
+
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions are
 met:
@@ -41,6 +43,7 @@ IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
  when         who             what, where, why
  --------     ----            --------------------------------------------------
+ 9/28/2020    pjkumlue        Update includes to use own pstdint.h
  1/25/2020    llundblade      Add some casts so static anlyzers don't complain.
  5/21/2019    llundblade      #define configs for efficient endianness handling.
  5/16/2019    llundblade      Add UsefulOutBuf_IsBufferNULL().
@@ -151,9 +154,8 @@ IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #endif
 
 
-#include <stdint.h> // for uint8_t, uint16_t....
+#include "pstdint.h" // for uint8_t, uint16_t....
 #include <string.h> // for strlen, memcpy, memmove, memset
-#include <stddef.h> // for size_t
 
 
 #ifdef USEFULBUF_CONFIG_HTON

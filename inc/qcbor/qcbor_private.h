@@ -35,7 +35,7 @@
 #define qcbor_private_h
 
 
-#include <stdint.h>
+#include "pstdint.h"
 #include "UsefulBuf.h"
 
 
