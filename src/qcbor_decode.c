@@ -40,6 +40,7 @@ IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   when         who             what, where, why
   --------     ----            --------------------------------------------------
   9/28/2020    pjkumlue        Declare iterator variable outside of for loop for compatibility
+  10/22/2020   pjkumlue        Disable check for BAD_BREAK needing to be used inside indefinite sized arrays. This is necessary to prevent a false-positive for now.
 
   =============================================================================*/
 
@@ -109,7 +110,8 @@ DecodeNesting_BreakAscend(QCBORDecodeNesting *pNesting)
 
    // breaks can only occur when the map/array is indefinite length
    if(!DecodeNesting_IsIndefiniteLength(pNesting)) {
-      return QCBOR_ERR_BAD_BREAK;
+	  // WARNING: THIS CHECK WAS DISABLED TO ALLOW STORING INDEFINITE ARRAYS INSIDE SIZED ARRAYS, THIS IS NOT SAFE LONG TERM
+      // return QCBOR_ERR_BAD_BREAK;
    }
 
    // if all OK, the break reduces the level of nesting
